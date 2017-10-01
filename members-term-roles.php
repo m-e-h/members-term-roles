@@ -3,7 +3,7 @@
  * Plugin Name:       Members Term Roles
  * Plugin URI:        https://github.com/m-e-h/members-term-roles
  * Description:       An add-on for the Members plugin. Adds Content Permissions to Taxonomy Terms.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Marty Helmick
  * License:           GNU General Public License v2
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,7 +44,7 @@ function _members_term_roles() {
  */
 function members_term_roles_can_init() {
 
-	if ( is_plugin_active( 'members/members.php' ) || class_exists( 'Members_Plugin' ) ) {
+	if ( class_exists( 'Members_Plugin' ) ) {
 		return true;
 	}
 
