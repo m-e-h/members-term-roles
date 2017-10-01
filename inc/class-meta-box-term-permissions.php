@@ -1,13 +1,7 @@
 <?php
 /**
- * Content permissions meta box.
+ * Term permissions meta box.
  *
- * @package    Members
- * @subpackage Admin
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/members
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 // namespace Members_Term_Roles;

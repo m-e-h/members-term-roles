@@ -13,119 +13,24 @@
  * Requires PHP:      5.4
  */
 
-// namespace Members_Term_Roles;
+ // Exit if accessed directly
+ defined( 'ABSPATH' ) || exit;
 
  /**
-  * Sets up the plugin
- *
- * @since  1.0.0
- * @access public
- */
-final class Members_Term_Roles_Plugin {
+  * Loads files needed by the plugin.
+  */
+add_action( 'plugins_loaded', '_members_term_roles' );
 
-	/**
-	 * Plugin directory path.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $dir = '';
+function _members_term_roles() {
 
-	/**
-	 * Plugin directory URI.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $uri = '';
+	$plugin_dir = plugin_dir_path( __FILE__ );
+	$plugin_uri = plugin_dir_url( __FILE__ );
 
-	/**
-	 * Returns the instance.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return object
-	 */
-	public static function get_instance() {
+	// Load function files.
+	require_once( $plugin_dir . 'inc/functions-post-permissions.php' );
 
-		static $instance = null;
-
-		if ( is_null( $instance ) ) {
-			$instance = new self;
-			$instance->setup();
-			$instance->includes();
-			$instance->setup_actions();
-		}
-
-		return $instance;
-	}
-
-	/**
-	 * Constructor method.
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function __construct() {}
-
-	/**
-	 * Sets up globals.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	private function setup() {
-
-		// Main plugin directory path and URI.
-		$this->dir = plugin_dir_path( __FILE__ );
-		$this->uri = plugin_dir_url( __FILE__ );
-	}
-
-	/**
-	 * Loads files needed by the plugin.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	private function includes() {
-
-		// Load function files.
-		require_once( $this->dir . 'inc/functions-post-permissions.php' );
-
-		// Load admin files.
-		if ( is_admin() ) {
-
-			require_once( $this->dir . 'inc/class-meta-box-term-permissions.php' );
-		}
-	}
-
-	/**
-	 * Sets up main plugin actions and filters.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	private function setup_actions() {
-
-		register_activation_hook( __FILE__, array( $this, 'activation' ) );
-	}
-
-	/**
-	 * Sets up necessary actions for the plugin.
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	public function activation() {
-		smcs_roles_on_plugin_activation();
+	// Load admin files.
+	if ( is_admin() ) {
+		require_once( $plugin_dir . 'inc/class-meta-box-term-permissions.php' );
 	}
 }
-
-Members_Term_Roles_Plugin::get_instance();
