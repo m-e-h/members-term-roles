@@ -4,9 +4,31 @@
  *
  */
 
-// namespace Members_Term_Roles;
-
 class Meta_Box_Term_Permissions {
+
+	/**
+	 * Singleton instance.
+	 *
+	 * @var
+	 * @since  0.1.0
+	 */
+	private static $instance = null;
+
+
+	/**
+	 * Creates or returns an instance of this class.
+	 *
+	 * @since  0.1.0
+	 * @return object
+	 */
+	public static function get_instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
 
 	public function __construct() {
 
@@ -94,7 +116,6 @@ class Meta_Box_Term_Permissions {
 	}
 
 	public function save_data( $term_id, $tt_id, $taxonomy ) {
-		global $wp_roles;
 
 		// Get the current roles.
 		$current_term_roles = get_term_meta( $term_id, 'members_term_role', false );
@@ -113,4 +134,4 @@ class Meta_Box_Term_Permissions {
 
 }
 
-new Meta_Box_Term_Permissions;
+Meta_Box_Term_Permissions::get_instance();

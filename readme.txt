@@ -16,5 +16,5 @@ An add-on for the Members plugin. Extends the Content Permissions feature to Tax
 * No further setup or configuration is necessary.
 
 == Changelog ==
-#### 1.0.0 / 2017-09-30
+#### 0.1.0 / 2017-09-30
 * brand new

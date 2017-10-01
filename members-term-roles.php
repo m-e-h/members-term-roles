@@ -3,7 +3,7 @@
  * Plugin Name:       Members Term Roles
  * Plugin URI:        https://github.com/m-e-h/members-term-roles
  * Description:       An add-on for the Members plugin. Adds Content Permissions to Taxonomy Terms.
- * Version:           1.0.0
+ * Version:           0.1.0
  * Author:            Marty Helmick
  * License:           GNU General Public License v2
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,24 +13,53 @@
  * Requires PHP:      5.4
  */
 
- // Exit if accessed directly
- defined( 'ABSPATH' ) || exit;
-
- /**
-  * Loads files needed by the plugin.
-  */
+/**
+ * Loads files needed by the plugin.
+ */
 add_action( 'plugins_loaded', '_members_term_roles' );
 
 function _members_term_roles() {
 
-	$plugin_dir = plugin_dir_path( __FILE__ );
-	$plugin_uri = plugin_dir_url( __FILE__ );
+	// Check if Members is installed.
+	if ( members_term_roles_can_init() ) {
 
-	// Load function files.
-	require_once( $plugin_dir . 'inc/functions-post-permissions.php' );
+		$plugin_dir = plugin_dir_path( __FILE__ );
+		$plugin_uri = plugin_dir_url( __FILE__ );
 
-	// Load admin files.
-	if ( is_admin() ) {
-		require_once( $plugin_dir . 'inc/class-meta-box-term-permissions.php' );
+		// Load function files.
+		require_once( $plugin_dir . 'includes/functions-post-permissions.php' );
+
+		// Load admin files.
+		if ( is_admin() ) {
+		 	require_once( $plugin_dir . 'includes/class-meta-box-term-permissions.php' );
+		}
 	}
+}
+
+/**
+ * Show a notice if Members is not installed and deactivate the Members Term Roles plugin.
+ *
+ * @since 0.1.0
+ * @return void
+ */
+function members_term_roles_can_init() {
+
+	if ( is_plugin_active( 'members/members.php' ) || class_exists( 'Members_Plugin' ) ) {
+		return true;
+	}
+
+	if ( current_user_can( 'activate_plugins' ) ) {
+		add_action( 'admin_notices', 'members_term_roles_requirements_notice' );
+	}
+
+	/**
+	 * Deactivation admin notice.
+	 */
+	function members_term_roles_requirements_notice() {
+		$notice = sprintf( '<strong>Members Term Roles</strong> requires the <a href="%1$s">%2$s</a> plugin but could not find it. You will need to install and activate <a href="%1$s">%2$s</a> before using Members Term Roles.', esc_url( 'https://wordpress.org/plugins/members/' ), 'Members' ); ?>
+		<div class="error"><p><?php echo wp_kses_post( $notice ); ?></p></div>
+		<?php
+	}
+
+	return false;
 }
