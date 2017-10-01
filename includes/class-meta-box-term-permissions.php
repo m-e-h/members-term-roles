@@ -35,9 +35,10 @@ class Meta_Box_Term_Permissions {
 		// Load on the edit tags screen.
 		add_action( 'load-tags.php',      array( $this, 'screen_loaded' ) );
 		add_action( 'load-edit-tags.php', array( $this, 'screen_loaded' ) );
+		add_action( 'load-term.php',      array( $this, 'screen_loaded' ) );
 
 		// Update term meta.
-		add_action( 'created_term', array( $this, 'save_data' ), 10, 3 );
+		add_action( 'created_term',  array( $this, 'save_data' ), 10, 3 );
 		add_action( 'edited_term',   array( $this, 'save_data' ), 10, 3 );
 
 	}
@@ -52,10 +53,12 @@ class Meta_Box_Term_Permissions {
 	public function screen_loaded() {
 
 		$screen = get_current_screen();
+		$taxonomy = get_taxonomy( $screen->taxonomy );
 
-		// Add the form fields.
-		add_action( "{$screen->taxonomy}_add_form_fields",  array( $this, 'add_form_fields' ), 10, 1 );
-		add_action( "{$screen->taxonomy}_edit_form_fields", array( $this, 'edit_form_fields' ), 10, 2 );
+		if ( $taxonomy->public  ) {
+			add_action( "{$screen->taxonomy}_add_form_fields",  array( $this, 'add_form_fields' ), 10, 1 );
+			add_action( "{$screen->taxonomy}_edit_form_fields", array( $this, 'edit_form_fields' ), 10, 2 );
+		}
 	}
 
 	public function add_form_fields( $taxonomy ) {
@@ -100,7 +103,7 @@ class Meta_Box_Term_Permissions {
 			$members_term_role = ''; ?>
 
 		<tr class="form-field term-members_term_role-wrap">
-			<th scope="row"><?php _e( 'Content Permissions', 'members-terms' ); ?></th>
+			<th scope="row"><?php _e( 'Term Permissions', 'members-terms' ); ?></th>
 			<td class="term-roles-datalist">
 				<?php foreach ( $_wp_roles as $role => $name ) : ?>
 						<label>
