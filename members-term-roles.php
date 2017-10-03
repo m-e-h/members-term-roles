@@ -23,15 +23,12 @@ function _members_term_roles() {
 	// Check if Members is installed.
 	if ( members_term_roles_can_init() ) {
 
-		$plugin_dir = plugin_dir_path( __FILE__ );
-		$plugin_uri = plugin_dir_url( __FILE__ );
-
 		// Load function files.
-		require_once( $plugin_dir . 'includes/functions-post-permissions.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/functions-post-permissions.php' );
 
 		// Load admin files.
 		if ( is_admin() ) {
-		 	require_once( $plugin_dir . 'includes/class-meta-box-term-permissions.php' );
+		 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-meta-box-term-permissions.php' );
 		}
 	}
 }
@@ -56,9 +53,8 @@ function members_term_roles_can_init() {
 	 * Deactivation admin notice.
 	 */
 	function members_term_roles_requirements_notice() {
-		$notice = sprintf( '<strong>Members Term Roles</strong> requires the <a href="%1$s">%2$s</a> plugin but could not find it. You will need to install and activate <a href="%1$s">%2$s</a> before using Members Term Roles.', esc_url( 'https://wordpress.org/plugins/members/' ), 'Members' ); ?>
-		<div class="error"><p><?php echo wp_kses_post( $notice ); ?></p></div>
-		<?php
+		$notice = sprintf( '<strong>Members Term Roles</strong> requires the <a href="%1$s">%2$s</a> plugin but could not find it. You will need to install and activate <a href="%1$s">%2$s</a> before using Members Term Roles.', esc_url( 'https://wordpress.org/plugins/members/' ), 'Members' );
+		echo '<div class="error"><p>' . $notice . '</p></div>';
 	}
 
 	return false;
