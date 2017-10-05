@@ -3,12 +3,12 @@
  * Plugin Name:       Members Term Roles
  * Plugin URI:        https://github.com/m-e-h/members-term-roles
  * Description:       An add-on for the Members plugin. Adds Content Permissions to Taxonomy Terms.
- * Version:           0.1.1
+ * Version:           0.1.2
  * Author:            Marty Helmick
  * License:           GNU General Public License v2
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mtr
- * GitHub Plugin URI: https://github.com/DioceseOfCharlotte/smcs-functions
+ * GitHub Plugin URI: https://github.com/m-e-h/members-term-roles
  * Requires WP:       4.7
  * Requires PHP:      5.4
  */
@@ -28,7 +28,7 @@ function _members_term_roles() {
 
 		// Load admin files.
 		if ( is_admin() ) {
-		 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-meta-box-term-permissions.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'includes/class-meta-box-term-permissions.php' );
 		}
 	}
 }
