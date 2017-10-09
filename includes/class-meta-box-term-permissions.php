@@ -55,7 +55,7 @@ class Meta_Box_Term_Permissions {
 		$screen = get_current_screen();
 		$taxonomy = get_taxonomy( $screen->taxonomy );
 
-		if ( $taxonomy->public  ) {
+		if ( $taxonomy->public ) {
 			add_action( "{$screen->taxonomy}_add_form_fields",  array( $this, 'add_form_fields' ), 10, 1 );
 			add_action( "{$screen->taxonomy}_edit_form_fields", array( $this, 'edit_form_fields' ), 10, 2 );
 		}
@@ -99,8 +99,10 @@ class Meta_Box_Term_Permissions {
 		$members_term_role = get_term_meta( $term->term_id, 'members_term_role', false );
 
 		// Set default values.
-		if ( empty( $members_term_role ) )
-			$members_term_role = ''; ?>
+		if ( empty( $members_term_role ) ) {
+			$members_term_role = '';
+		}
+			?>
 
 		<tr class="form-field term-members_term_role-wrap">
 			<th scope="row"><?php _e( 'Term Permissions', 'members-terms' ); ?></th>
