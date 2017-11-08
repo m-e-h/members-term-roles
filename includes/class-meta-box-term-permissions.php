@@ -33,13 +33,13 @@ class Meta_Box_Term_Permissions {
 	public function __construct() {
 
 		// Load on the edit tags screen.
-		add_action( 'load-tags.php',      array( $this, 'screen_loaded' ) );
+		add_action( 'load-tags.php', array( $this, 'screen_loaded' ) );
 		add_action( 'load-edit-tags.php', array( $this, 'screen_loaded' ) );
-		add_action( 'load-term.php',      array( $this, 'screen_loaded' ) );
+		add_action( 'load-term.php', array( $this, 'screen_loaded' ) );
 
 		// Update term meta.
-		add_action( 'created_term',  array( $this, 'save_data' ), 10, 3 );
-		add_action( 'edited_term',   array( $this, 'save_data' ), 10, 3 );
+		add_action( 'created_term', array( $this, 'save_data' ), 10, 3 );
+		add_action( 'edited_term', array( $this, 'save_data' ), 10, 3 );
 
 	}
 
@@ -52,11 +52,11 @@ class Meta_Box_Term_Permissions {
 	 */
 	public function screen_loaded() {
 
-		$screen = get_current_screen();
+		$screen   = get_current_screen();
 		$taxonomy = get_taxonomy( $screen->taxonomy );
 
 		if ( $taxonomy->public ) {
-			add_action( "{$screen->taxonomy}_add_form_fields",  array( $this, 'add_form_fields' ), 10, 1 );
+			add_action( "{$screen->taxonomy}_add_form_fields", array( $this, 'add_form_fields' ), 10, 1 );
 			add_action( "{$screen->taxonomy}_edit_form_fields", array( $this, 'edit_form_fields' ), 10, 2 );
 		}
 	}
@@ -66,7 +66,7 @@ class Meta_Box_Term_Permissions {
 		global $wp_roles;
 
 		// Get roles and sort.
-		 $_wp_roles = $wp_roles->role_names;
+		$_wp_roles = $wp_roles->role_names;
 		asort( $_wp_roles );
 
 		// Set default values.
@@ -92,7 +92,7 @@ class Meta_Box_Term_Permissions {
 		global $wp_roles;
 
 		// Get roles and sort.
-		 $_wp_roles = $wp_roles->role_names;
+		$_wp_roles = $wp_roles->role_names;
 		asort( $_wp_roles );
 
 		// Set default values.

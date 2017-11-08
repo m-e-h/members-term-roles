@@ -47,14 +47,13 @@ TODO         text
 *.woff2 binary
 
 ## DO NOT EXPORT
-package.json    	export-ignore
-*.map          		export-ignore
-gulpfile.js    		export-ignore
-.git                export-ignore
-.gitignore     		export-ignore
-.gitattributes     	export-ignore
-/src         		export-ignore
-composer.json      	export-ignore
-composer.lock  		export-ignore
-yarn.lock  			export-ignore
-.editorconfig  		export-ignore
+*.map				export-ignore
+gulpfile.js 		export-ignore
+.git				export-ignore
+.gitignore			export-ignore
+.gitattributes		export-ignore
+/src				export-ignore
+composer.json		export-ignore
+composer.lock		export-ignore
+yarn.lock			export-ignore
+.editorconfig		export-ignore
