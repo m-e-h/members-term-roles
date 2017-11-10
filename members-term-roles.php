@@ -29,6 +29,8 @@ function _members_term_roles() {
 		// Load admin files.
 		if ( is_admin() ) {
 			require_once( plugin_dir_path( __FILE__ ) . 'includes/class-meta-box-term-permissions.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/functions-settings.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/views/class-view-terms.php' );
 		}
 	}
 }

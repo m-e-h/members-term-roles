@@ -1,9 +1,30 @@
 <?php
 
+add_filter( 'members_can_user_view_post', 'mtr_can_view_post_term', 10, 3 );
+add_filter( 'members_content_permissions_enabled', '__return_true' );
+add_action( 'default_hidden_meta_boxes', 'mtr_remove_cp_meta_box', 10, 2 );
 
-add_filter( 'members_can_user_view_post', 'mt_can_view_post_term', 10, 3 );
+function mtr_enable_content_permissions() {
+	return true;
+}
 
-function mt_can_view_post_term( $can_view, $user_id, $post_id ) {
+function members_content_permissions_mb_hidden() {
+
+	$options = get_option( 'members_term_settings' );
+
+	return $options['hide_content_permissions_mb'];
+}
+
+function mtr_remove_cp_meta_box( $hidden, $screen ) {
+
+	if ( members_content_permissions_mb_hidden() ) {
+		$hidden[] = 'members-cp';
+	}
+
+	return $hidden;
+}
+
+function mtr_can_view_post_term( $can_view, $user_id, $post_id ) {
 
 	$post       = get_post( $post_id );
 	$post_type  = get_post_type_object( $post->post_type );
